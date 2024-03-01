@@ -14,6 +14,7 @@ $utilisateurs = json_decode($jsonUtilisateurs, true);
 
 $jsonFichiers = file_get_contents("../../donnees/fichiers.json");
 $fichiersTableau = json_decode($jsonFichiers, true);
+$extensionsValides = array('pdf', 'jpg', 'jpeg', 'png');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
@@ -21,9 +22,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $fichier = $_FILES['fichier'];
     $erreur = "";
+
+    // Les deux lignes ci-dessous permettent d'aller chercher le tout dernier point dans le nom du fichier
+    // au cas où qu'il y en ait d'autres, et ainsi trouver l'extension
     $parties = explode('.', $fichier['name']); 
     $extension = strtolower(end($parties)); 
-    $extensionsValides = array('pdf', 'jpg', 'jpeg', 'png');
+
+    // Tableau des extensions que l'on valide lors du téléchargement
     $compteur = count($fichiersTableau);
     
 
@@ -67,8 +72,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $infosFichier = array(
                             'id' => $compteur,
                             'nom_original' => $nomOrigine,
+                            'chemin_destination' => $cheminDestination,
                             'id_utilisateur' => $utilisateurs[$_SESSION['id']]['id'],
-                            'chemin_destination' => $cheminDestination
+                            'compteur_telechargement' => 0,
+                            'id_reservation' => []
                         );
 
                         // Charger le fichier JSON existant s'il existe, sinon initialiser un tableau vide
@@ -99,8 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $erreur = "Oups";
         }
-
-        
+   
 }
 ?>
 
@@ -111,6 +117,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <label for="fichier">Choisir un fichier</label>
         <input type="file" name="fichier" id="fichier">
+
+        <p>Seuls les fichiers <?php foreach($extensionsValides as $extensions){
+            echo $extensions.', ';
+        }; ?> 
+        sont autorisées <br>
+        <i>(Taille maximale : 20Mo)</i></p>
 
         <input type="submit" value="Envoyer le fichier">
 

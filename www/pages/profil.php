@@ -15,9 +15,9 @@ $mailExistant = "false";
 ?>
 
 
+<h2><?= $titreFormulaire ?></h2>
 
 <form action="" method="POST">
-    <h2><?= $titreFormulaire ?></h2>
 
     <label for="email">Nouvelle adresse email :</label>
     <input type="email" id="email" name="email" value="<?= $utilisateurs[$_SESSION['id']]["email"] ?>" required>

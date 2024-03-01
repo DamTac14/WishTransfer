@@ -1,5 +1,5 @@
+<h2><?= $titreFormulaire ?></h2>
 <form action="<?= ($titreFormulaire === 'Connexion') ? 'connexion.php' : 'inscription.php' ?>" method="post">
-    <h2><?= $titreFormulaire ?></h2>
 
     <label for="email">Adresse email :</label>
     <input type="email" id="email" name="email" required>
