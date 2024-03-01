@@ -8,7 +8,7 @@ $titre = 'WeTransfer';
 
 require_once '../composants/header.php';
 
-require_once '../composants/formulaire.php';
+require_once '../composants/formulaireInscriptionConnexion.php';
 
 
 // Vérifier si le formulaire a été soumis
@@ -29,10 +29,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // L'utilisateur a été trouvé, vérifier si le mot de passe correspond
             if (password_verify($motDePasse, $utilisateur["mot_de_passe"])) {
-                
+
+                // Stockage des sessions qui serviront à travers le site pour les autorisations
                 $_SESSION['connecte'] = true;     
                 $_SESSION['id'] = $utilisateur['id'];   
-  
+                
+                // Redirection après connexion 
                 header('Location: ./historique.php');
 
                 break; 
@@ -45,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "Mot de passe incorrect.";
             }
         } else {
-
+            
             http_response_code(401);
             // Le mail est inexistant
             echo "Mail incorrect.";
@@ -53,5 +55,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
+
+require_once '../composants/footer.php';
+
 
 ?>

@@ -4,7 +4,7 @@ $titre = 'WeTransfer';
 $titreFormulaire = "Inscription";
 require_once '../composants/header.php';
 
-require_once '../composants/formulaire.php';
+require_once '../composants/formulaireInscriptionConnexion.php';
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -70,6 +70,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Mot de passe différent vérifie bien";
     }
 } 
+
+require_once '../composants/footer.php';
+
 ?>
 
 

@@ -14,13 +14,28 @@ form p {
 
 /* Style du bouton de déconnexion */
 nav form button[name="deconnexion"],
-form button[name="supprimer_fichier"] {
+form button[name="supprimer_fichier"],
+form button[name="telecharger"] {
     padding: 10px;
-    background-color: #fd4545; 
     color: #fff; 
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+
+nav form button[name="deconnexion"],
+form button[name="supprimer_fichier"] {
+    background-color: #fd4545; 
+}
+
+form button[name="telecharger"] {
+    background-color: #3a5f95;
+}
+
+form button[name="telecharger"]:hover {
+    background-color: #84aff0;
+    color: black;
+    transition: background-color 0.3s ease;
 }
 
 nav form button[name="deconnexion"]:hover,
@@ -28,6 +43,8 @@ form button[name="supprimer_fichier"]:hover {
     background-color: #9f0000; 
     transition: background-color 0.3s ease;
 }
+
+
 
 h2 {
     text-align: center;
@@ -143,7 +160,7 @@ table {
 
 th, td {
     padding: 12px 15px;
-    text-align: left;
+    text-align: center;
     border-bottom: 1px solid #ddd;
 }
 
@@ -158,4 +175,9 @@ tr:nth-child(even) {
 
 tr:hover {
     background-color: #ddd;
+}
+
+footer p {
+    text-align: center;
+    font-size: 10px;
 }
