@@ -100,20 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reservation'])) {
             <th>Téléchargement effectués</th>
             <th>Re-Télécharger</th>
             <th>Réservation téléchargement</th>
-            <?php 
-                    $autorise = false; // Variable pour suivre si l'utilisateur est autorisé à supprimer au moins un fichier
-                    foreach ($tmpFichierTableau as $fichier) :
-                        if (!in_array($_SESSION['id'], $fichier['id_reservation'])):
-                            $autorise = true; // L'utilisateur est autorisé à supprimer au moins un fichier
-                            break; // Terminer la boucle dès qu'un fichier autorisé est trouvé
-                        endif;
-                    endforeach;
-
-                        if ($autorise) : // Afficher la colonne Supprimer seulement si l'utilisateur est autorisé à supprimer au moins un fichier
-                        ?>
-                    <th>Supprimer</th>
-            <?php endif; ?>
-
+            <th>Supprimer</th>
         </tr>
     </thead>
     <tbody>
@@ -133,27 +120,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reservation'])) {
                         <input type="submit" value="ajouter">
                     </form>
                 </td>
-                <?php 
-                    $autorise = false; // Variable pour suivre si l'utilisateur est autorisé à supprimer au moins un fichier
-                    foreach ($tmpFichierTableau as $fichier) :
-                        if (!in_array($_SESSION['id'], $fichier['id_reservation'])):
-                            $autorise = true; // L'utilisateur est autorisé à supprimer au moins un fichier
-                            break; // Terminer la boucle dès qu'un fichier autorisé est trouvé
-                        endif;
-                    endforeach;
-
-                        if ($autorise) : // Afficher la colonne Supprimer seulement si l'utilisateur est autorisé à supprimer au moins un fichier
-                        ?>
+                <?php if (!in_array($_SESSION['id'], $fichier['id_reservation'])) : ?>
                         <td>
                             <form method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce fichier ?');">
                                 <input type="hidden" name="id_fichier" value="<?= $fichier['id'] ?>">
                                 <button type="submit" name="supprimer_fichier">Supprimer</button>
                             </form>
                         </td>
-                    <?php 
-                 endif; ?>
+                <?php else : ?>
+                    <td></td>
+                <?php endif; ?>
         </tr>
-        <?php endif; ?>
+                        <?php endif; ?>
         <?php endforeach ?>
     </tbody>
 </table>
